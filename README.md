@@ -35,3 +35,13 @@ File "./read.py", line 22, in main
 File "/Users/aaron/code/scratch/unicode/read-0.7/pycassa/columnfamily.py", line 343, in get
 pycassa.cassandra.ttypes.NotFoundException: NotFoundException()
 ```
+
+When I step the 0.7 code, in `SSTableReader.getPosition` the code fails to compare two keys when looking for the unicode key...
+
+```java
+// search for decorated key is 
+DecoratedKey(43723696825261962251520276610181237838, e695b0e69982e99693)
+
+// index decorated key is 
+DecoratedKey(17420333691542862345855860553793976250, e695b0e69982e99693)
+```
