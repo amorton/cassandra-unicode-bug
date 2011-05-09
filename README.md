@@ -45,3 +45,27 @@ DecoratedKey(43723696825261962251520276610181237838, e695b0e69982e99693)
 // index decorated key is 
 DecoratedKey(17420333691542862345855860553793976250, e695b0e69982e99693)
 ```
+
+# More testing 
+
+Added `simple-test.py` which sets the unicode key, then reads back the key `???` and then reads the unicode key. This code should never work, found the following:
+
+* v0.6.12 bin, code works
+* v0.6 source head, code works when cassandra run from command line
+* v0.6 source code, code fails when cassandra run inside intelli J
+* v0.7.5 bin, code fails 
+
+Expected outcome is:
+
+    $ ./simple-test.py 
+    Insert row 数時間
+    数時間 1304911869357661
+    Read rows
+    ???
+    Traceback (most recent call last):
+      File "./simple-test.py", line 28, in <module>
+        main()
+      File "./simple-test.py", line 23, in main
+        print "???", standard1.get("???")
+      File "/Users/aaron/code/scratch/unicode/pycassa/columnfamily.py", line 160, in get
+    cassandra.ttypes.NotFoundException: NotFoundException()
